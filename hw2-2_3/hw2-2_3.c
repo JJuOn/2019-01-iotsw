@@ -9,7 +9,7 @@
 #define GPFSEL1 0x04
 #define GPSET0 0x1C
 #define GPCLR0 0x28
-
+#define ALLOFF 0x00000000
 int main()
 {
 	int fd=open("/dev/mem",O_RDWR|O_SYNC);
@@ -24,6 +24,8 @@ int main()
 		exit(-1);
 	}
 	volatile unsigned int* gpio=(volatile unsigned int*)gpio_memory_map;
+	//all off
+	gpio[GPCLR0/4]=0x11111111;
 	gpio[GPFSEL1/4]=(1<<24);
 	int i;
 	for(i=0;i<5;i++){
