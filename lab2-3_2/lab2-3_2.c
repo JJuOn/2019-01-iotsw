@@ -1,4 +1,5 @@
 #include <wiringPi.h>
+#include <stdio.h>
 const int LedRed[8]={4,17,18,27,22,23,24,25};
 const int Keypad[2]={16,19};
 
@@ -6,6 +7,7 @@ int KeypadRead(){
 	int i,keypadnum=-1;
 	for(i=0;i<8;i++){
 		if(!digitalRead(Keypad[i])){
+			printf("read: %d",i+1);
 			keypadnum=i;
 			break;
 		}
@@ -36,6 +38,7 @@ int main(){
 		pinMode(Keypad[i],INPUT);
 	while(1){
 		keypadnum=KeypadRead();
+		printf("read: %d",keypadnum+1);
 		if(keypadnum==0){
 			for(i=0;i<8;i++){
 				LedControl(i);
